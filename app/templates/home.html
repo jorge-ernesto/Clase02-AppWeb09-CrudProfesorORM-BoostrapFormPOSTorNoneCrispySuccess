@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<div class="container mt-3" style="width: 60%; font-size: 12px;">
+    <form method="POST" class="card p-3 mt-3" autocomplete="off">
+        {% csrf_token %}
+        <div class="row" style="height: 60px;">
+            <div class="col-6">
+                {{ form.nombre|as_crispy_field }}
+            </div>
+            <div class="col-6">
+                {{ form.apellidos|as_crispy_field }}
+            </div>
+        </div>
+        {{ form.email|as_crispy_field }}
+        {{ form.mensaje|as_crispy_field }}
+
+        <button type="submit" class="btn btn-primary mt-3">Registrar</button>
+    </form>
+    <!---Mensage en backend-->
+    {% for message in messages %}
+    {% if message.tags == 'success' %}
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">{{ message }}
+        <a href="{% url 'home' %}" type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+</div>
+{% endblock %}
